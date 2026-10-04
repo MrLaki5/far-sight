@@ -1,0 +1,13 @@
+far-sight
+Copyright 2026 MrLaki5 (https://github.com/MrLaki5/far-sight)
+
+This product includes software developed by MrLaki5.
+Redistributions and derivative works must retain this NOTICE file and
+give appropriate credit to the original project, as required by
+Section 4 of the Apache License, Version 2.0.
+
+Third-party components:
+- stb_image / stb_image_write (third_party/stb) by Sean Barrett,
+  public domain or MIT, at the user's choice.
+- llama.cpp / ggml (fetched at build time), MIT License,
+  Copyright (c) 2023-2026 The ggml authors.

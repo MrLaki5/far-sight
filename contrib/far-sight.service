@@ -1,0 +1,18 @@
+# Install: cp contrib/far-sight.service ~/.config/systemd/user/ && systemctl --user enable --now far-sight
+# Logs:    journalctl --user -u far-sight -f
+[Unit]
+Description=far-sight camera event watcher
+
+[Service]
+ExecStart=%h/.local/bin/far-sight \
+    --model %h/.local/share/far-sight/SmolVLM-500M-Instruct-Q8_0.gguf \
+    --mmproj %h/.local/share/far-sight/mmproj-SmolVLM-500M-Instruct-Q8_0.gguf \
+    --prompt "a person waving at the camera" \
+    --interval 1s --consecutive 2 --cooldown 30s \
+    --output %h/Pictures/far-sight \
+    --on-match "notify-send far-sight \"Event at $$FARSIGHT_TIME\""
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

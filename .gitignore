@@ -1,0 +1,16 @@
+# Build output
+build/
+cmake-build-*/
+compile_commands.json
+
+# Models and runtime output
+models/
+captures/
+*.gguf
+*.part
+
+# Editors / tooling
+.vscode/
+.idea/
+.cache/
+*.swp
