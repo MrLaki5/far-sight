@@ -6,6 +6,7 @@ compile_commands.json
 # Models and runtime output
 models/
 captures/
+examples/*/media/
 *.gguf
 *.part
 

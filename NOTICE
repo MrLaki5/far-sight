@@ -11,3 +11,11 @@ Third-party components:
   public domain or MIT, at the user's choice.
 - llama.cpp / ggml (fetched at build time), MIT License,
   Copyright (c) 2023-2026 The ggml authors.
+
+Media:
+- docs/demo-capture.jpg is a frame from "Ginger Cat Walks on Sunny Kitchen
+  Counter" by Alex Moliski from Pexels, used under the Pexels License
+  (https://www.pexels.com/license/).
+  https://www.pexels.com/video/ginger-cat-walks-on-sunny-kitchen-counter-35674403/
+  The video itself is not redistributed; examples/cat-on-counter downloads it
+  from Pexels at run time.

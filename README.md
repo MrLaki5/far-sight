@@ -4,6 +4,22 @@ Watches a webcam and asks a small local vision-language model whether something 
 
 It is a single C++ binary for Linux. It links llama.cpp (including its `libmtmd` multimodal library) statically and captures from the camera through V4L2 directly, so it needs no OpenCV or other runtime dependencies.
 
+![far-sight catching a cat on the kitchen counter, with the capture time stamped in the corner](docs/demo-capture.jpg)
+
+*Frame from the [cat-on-counter example](examples/cat-on-counter/). Footage: ["Ginger Cat Walks on Sunny Kitchen Counter"](https://www.pexels.com/video/ginger-cat-walks-on-sunny-kitchen-counter-35674403/) by [Alex Moliski](https://www.pexels.com/@alexmoliski/) from Pexels.*
+
+## Quick start
+
+```sh
+cmake -S . -B build && cmake --build build -j       # build
+./scripts/download-model.sh                         # get SmolVLM-500M (~540 MB)
+./build/far-sight -m models/SmolVLM-500M-Instruct-Q8_0.gguf \
+    --mmproj models/mmproj-SmolVLM-500M-Instruct-Q8_0.gguf \
+    -p "a cat on the kitchen counter"               # watch /dev/video0
+```
+
+Photos of each event land in `./captures/`. To try it without a real camera, see the [example](#example-no-camera-needed) below.
+
 ## Build
 
 You need CMake 3.20 or newer, a C++17 compiler and git. llama.cpp is fetched automatically at configure time and pinned to a tag through `FARSIGHT_LLAMA_TAG`.
@@ -59,6 +75,17 @@ Each event writes:
 The `--on-match` command runs detached through `/bin/sh`. It receives `FARSIGHT_IMAGE`, `FARSIGHT_TIME`, `FARSIGHT_SCORE` and `FARSIGHT_PROMPT` as environment variables.
 
 Run `far-sight --help` for every option.
+
+## Example: no camera needed
+
+[examples/cat-on-counter](examples/cat-on-counter/) plays a stock clip of a cat jumping onto a kitchen counter into a virtual webcam and runs far-sight on it:
+
+```sh
+sudo modprobe v4l2loopback video_nr=10 card_label="far-sight demo" exclusive_caps=1
+./examples/cat-on-counter/run-demo.sh
+```
+
+The script downloads the model and clip on first run. Its README covers the requirements, the expected output and how to play your own video instead.
 
 ## How it decides
 
